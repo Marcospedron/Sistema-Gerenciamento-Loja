@@ -1,5 +1,6 @@
 import com.sualoja.model.Produto;
 import com.sualoja.model.Cliente;
+import com.sualoja.service.GerenciadorClientes;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -7,6 +8,7 @@ void main() {
  Scanner ler = new Scanner(System.in);
 int x;
     ArrayList<Produto> produtos = new ArrayList<Produto>();
+    GerenciadorClientes gerenciadorClientes = new GerenciadorClientes();
  do {
      System.out.println("========================================");
      System.out.println("       Sistema de Gerenciamento");
@@ -332,7 +334,7 @@ int x;
              int k;
              do {
 
-                 System.out.println("Gerenciar produtos");
+                 System.out.println("Gerenciar clientes");
                  System.out.println("1 - Cadastrar clientes");
                  System.out.println("2 - Listar clientes");
                  System.out.println("3 - Buscar clientes");
@@ -342,10 +344,28 @@ int x;
 
                  System.out.println("Escolha uma opcao: ");
                  k = ler.nextInt();
+                 ler.nextLine();
 
                  switch (k) {
                      case 1:
-                     break;
+
+                         System.out.println("Cadastrar clientes");
+                         System.out.println("Nome:");
+                         String n1 = ler.nextLine();
+                         System.out.println("Contato(Numero de Telefone) ");
+                         String c1;
+                         do {
+                             c1 = ler.nextLine();
+
+                             if(!c1.matches("^\\(?[1-9]{2}\\)? ?(?:9\\d{4}|[2-5]\\d{3})-?\\d{4}$")) {
+                                 System.out.println("Telefone no formato errado");
+                             }
+                         } while (!c1.matches("^\\(?[1-9]{2}\\)? ?(?:9\\d{4}|[2-5]\\d{3})-?\\d{4}$"));
+
+                         Cliente cliente = new Cliente(n1, c1);
+                         gerenciadorClientes.addList(cliente);
+                         System.out.println("Cliente cadastrado com sucesso");
+                         break;
                      case 2:
                      break;
                      case 3:
