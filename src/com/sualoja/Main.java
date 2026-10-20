@@ -367,7 +367,9 @@ int x;
                          System.out.println("Cliente cadastrado com sucesso");
                          break;
                      case 2:
-                     break;
+                         System.out.println("Listar clientes");
+                         gerenciadorClientes.listarClientes();
+                         break;
                      case 3:
                      break;
                      case 4:

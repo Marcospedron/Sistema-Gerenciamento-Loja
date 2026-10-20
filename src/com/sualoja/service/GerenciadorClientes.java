@@ -10,4 +10,13 @@ public class GerenciadorClientes {
         this.clientes.add(c);
 
     }
+
+    public void listarClientes() {
+        if(clientes.size() == 0) {
+            System.out.println("Nenhum cliente cadastrado");
+        }
+        for(Cliente cl: clientes) {
+            System.out.println(cl);
+        }
+    }
 }
