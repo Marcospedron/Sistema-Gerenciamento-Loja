@@ -1,4 +1,7 @@
-import com.sualoja.model.Produto;//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+import com.sualoja.model.Produto;
+import com.sualoja.model.Cliente;
+
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
  Scanner ler = new Scanner(System.in);
@@ -326,6 +329,39 @@ int x;
 
          break;
          case 2:
+             int k;
+             do {
+
+                 System.out.println("Gerenciar produtos");
+                 System.out.println("1 - Cadastrar clientes");
+                 System.out.println("2 - Listar clientes");
+                 System.out.println("3 - Buscar clientes");
+                 System.out.println("4 - Editar clientes");
+                 System.out.println("6 - Remover clientes");
+                 System.out.println("0 - Sair");
+
+                 System.out.println("Escolha uma opcao: ");
+                 k = ler.nextInt();
+
+                 switch (k) {
+                     case 1:
+                     break;
+                     case 2:
+                     break;
+                     case 3:
+                     break;
+                     case 4:
+                     break;
+                     case 5:
+                     break;
+                     case 6:
+                     break;
+
+
+
+
+                 }
+             }while (k != 0);
          break;
          case 3:
          break;
