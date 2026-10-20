@@ -40,7 +40,7 @@ int x;
                  j = ler.nextInt();
                  ler.nextLine();
 
-                 switch(j) {
+                 switch (j) {
                      case 1:
                          String n;
                          double p;
@@ -51,20 +51,35 @@ int x;
                          System.out.println("Preco");
                          do {
                              p = ler.nextDouble();
-                             if(p<0) {
+                             if (p < 0) {
                                  System.out.println("Insira um valor valido");
                              }
-                         }while(p<0);
+                         } while (p < 0);
                          System.out.println("Quantidade");
                          do {
                              q = ler.nextInt();
-                             if(q<0) {
+                             if (q < 0) {
                                  System.out.println("Insira um valor valido");
                              }
-                         }while(q<0);
-                         Produto produto = new Produto(n, p, q);
-                         produtos.add(produto);
+                         } while (q < 0);
+
+                         boolean existe = false;
+                         for (Produto prods : produtos) {
+                             if (prods.getNome().toLowerCase().replaceAll("\\s+", "").equals(n.toLowerCase().replaceAll("\\s+", ""))) {
+                                 System.out.println("Ja existe um produto com esse nome");
+                                 existe = true;
+                                break;
+                             }
+
+                         }
+                         if(!existe) {
+                             Produto produto = new Produto(n, p, q);
+                             produtos.add(produto);
+                             System.out.println("Produto criado com sucesso");
+
+                         }
                          break;
+
                      case 2:
                          System.out.println("Listar e Buscar produtos");
                          for(Produto prods: produtos) {
@@ -72,27 +87,34 @@ int x;
                          }
                          System.out.println("Buscar produto por nome ou codigo");
                          String busca = ler.nextLine();
+                         boolean achou = false;
                          if(busca.matches("\\d+")) {
                              int c = Integer.parseInt(busca);
                              for(Produto prods : produtos) {
                                 if(prods.getCodigo() == c) {
                                     System.out.println(prods);
+                                    achou = true;
                                 }
                              }
                          } else {
                              for (Produto prods : produtos) {
                                  if(prods.getNome().toLowerCase().replaceAll("\\s+", "").equals(busca.toLowerCase().replaceAll("\\s+", ""))) {
                                      System.out.println(prods);
+                                     achou = true;
                                  }
                              }
 
+                         }
+
+                         if(!achou) {
+                             System.out.println("Produto nao encontrado");
                          }
                          break;
                      case 3:
                          System.out.println(" Editar produtos");
                          System.out.println(" Insira o nome ou codigo do produto a ser editado: ");
                          String buscaEditar = ler.nextLine();
-
+                         boolean achouEdit = false;
                          if(buscaEditar.matches("\\d+")) {
                              int cEditor = Integer.parseInt(buscaEditar);
                              for(Produto prods : produtos) {
@@ -108,9 +130,25 @@ int x;
                                      p1 = ler.nextDouble();
                                      System.out.println("Quantidade: ");
                                      q1 = ler.nextInt();
-                                     prods.setNome(n1);
-                                     prods.setPreco(p1);
-                                     prods.setQuantidade(q1);
+
+
+                                     boolean existeEdit = false;
+                                     for (Produto prodts : produtos) {
+                                         if (prodts.getNome().toLowerCase().replaceAll("\\s+", "").equals(n1.toLowerCase().replaceAll("\\s+", ""))) {
+                                             System.out.println("Ja existe um produto com esse nome");
+                                             existeEdit = true;
+                                             achouEdit = true;
+                                             break;
+                                         }
+
+                                     }
+                                     if(!existeEdit) {
+                                         prods.setNome(n1);
+                                         prods.setPreco(p1);
+                                         prods.setQuantidade(q1);
+                                         System.out.println("Produto editado com sucesso");
+                                         achouEdit = true;
+                                     }
                                  }
                              }
                          } else {
@@ -130,8 +168,14 @@ int x;
                                      prods.setNome(n1);
                                      prods.setPreco(p1);
                                      prods.setQuantidade(q1);
+                                     System.out.println("Produto editado com sucesso");
+                                     achouEdit = true;
                                  }
                              }
+                         }
+
+                         if(!achouEdit) {
+                             System.out.println("Produto nao encontrado");
                          }
                          break;
                      case 4:
@@ -139,6 +183,7 @@ int x;
                          System.out.println(" Insira o nome ou codigo do produto para adicionar unidades ao estoque: ");
 
                          String buscaAdd = ler.nextLine();
+                         boolean achouAddUn = false;
 
                          if(buscaAdd.matches("\\d+")) {
                              int cEditor = Integer.parseInt(buscaAdd);
@@ -158,6 +203,7 @@ int x;
                                          }
                                      } while(q1 <= 0);
                                      prods.adicionarUnidadesEstoque(q1);
+                                     achouAddUn = true;
                                  }
                              }
                          } else {
@@ -177,8 +223,13 @@ int x;
                                          }
                                      } while(q1 <= 0);
                                      prods.adicionarUnidadesEstoque(q1);
+                                     achouAddUn = true;
+
                                  }
                              }
+                         }
+                         if(!achouAddUn) {
+                             System.out.println("Produto nao econtrado");
                          }
                          break;
                      case 5:
@@ -186,6 +237,8 @@ int x;
                          System.out.println(" Insira o nome ou codigo do produto para adicionar unidades ao estoque: ");
 
                          String buscaRemove = ler.nextLine();
+                         boolean achouAddRem = false;
+
 
                          if(buscaRemove.matches("\\d+")) {
                              int cEditor = Integer.parseInt(buscaRemove);
@@ -206,6 +259,7 @@ int x;
                                      } while(q1 <= 0);
                                     if( prods.removerUnidadesEstoque(q1)) {
                                         System.out.println("Unidades removidas com sucesso");
+                                        achouAddRem = true;
                                     } else {
                                         System.out.println("Nao foi possivel remover as unidades");
 
@@ -230,11 +284,15 @@ int x;
                                      } while (q1 <= 0);
                                      if (prods.removerUnidadesEstoque(q1)) {
                                          System.out.println("Unidades removidas com sucesso");
+                                         achouAddRem = true;
                                      } else {
                                          System.out.println("Nao foi possivel remover as unidades");
                                      }
                                  }
                              }
+                         }
+                         if(!achouAddRem) {
+                             System.out.println("Produto nao encontrado");
                          }
                          break;
                      case 6:
@@ -242,13 +300,19 @@ int x;
                          System.out.println("Insira o codigo do produto a ser excluido");
 
                          String buscaExcluir = ler.nextLine();
+                         boolean achouExc = false;
 
                          if(buscaExcluir.matches("\\d+")) {
                              int cEditor = Integer.parseInt(buscaExcluir);
-                             produtos.removeIf(prods -> prods.getCodigo() == cEditor);
+                             if(produtos.removeIf(prods -> prods.getCodigo() == cEditor)) {
+                                 System.out.println("Produto Excluido com sucesso");
+                                 achouExc = true;
+                             }
 
                          }
-
+                        if(!achouExc) {
+                            System.out.println("Produto nao encontrado");
+                        }
 
                          break;
                      default:
