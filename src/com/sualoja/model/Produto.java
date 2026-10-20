@@ -45,6 +45,10 @@ public class Produto {
 
     }
 
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
     public int getCodigo() {
         return this.codigo;
     }

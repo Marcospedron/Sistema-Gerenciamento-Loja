@@ -88,6 +88,50 @@ int x;
                          }
                          break;
                      case 3:
+                         System.out.println(" Editar produtos");
+                         System.out.println(" Insira o nome ou codigo do produto a ser editado: ");
+                         String buscaEditar = ler.nextLine();
+
+                         if(buscaEditar.matches("\\d+")) {
+                             int cEditor = Integer.parseInt(buscaEditar);
+                             for(Produto prods : produtos) {
+                                 if(prods.getCodigo() == cEditor) {
+                                     System.out.println(prods);
+                                     System.out.println(" Insira os novos valores para o produto");
+                                     String n1;
+                                     double p1;
+                                     int q1;
+                                     System.out.println("Nome: ");
+                                     n1 = ler.nextLine();
+                                     System.out.println("Preco: ");
+                                     p1 = ler.nextDouble();
+                                     System.out.println("Quantidade: ");
+                                     q1 = ler.nextInt();
+                                     prods.setNome(n1);
+                                     prods.setPreco(p1);
+                                     prods.setQuantidade(q1);
+                                 }
+                             }
+                         } else {
+                             for (Produto prods : produtos) {
+                                 if (prods.getNome().toLowerCase().replaceAll("\\s+", "").equals(buscaEditar.toLowerCase().replaceAll("\\s+", ""))) {
+                                     System.out.println(prods);
+                                     System.out.println(" Insira os novos valores para o produto");
+                                     String n1;
+                                     double p1;
+                                     int q1;
+                                     System.out.println("Nome: ");
+                                     n1 = ler.nextLine();
+                                     System.out.println("Preco: ");
+                                     p1 = ler.nextDouble();
+                                     System.out.println("Quantidade: ");
+                                     q1 = ler.nextInt();
+                                     prods.setNome(n1);
+                                     prods.setPreco(p1);
+                                     prods.setQuantidade(q1);
+                                 }
+                             }
+                         }
                          break;
                      case 4:
                          break;
