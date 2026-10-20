@@ -58,4 +58,7 @@ public class Produto {
         return String.format("Codigo: %d // Nome: %s // Preco: %.2f // Quantidade: %d%n", this.codigo, this.nome, this.preco, this.quantidade);
     }
 
+    public void adicionarUnidadesEstoque(int quantidade) {
+        this.quantidade += quantidade;
+    }
 }

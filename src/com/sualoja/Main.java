@@ -30,8 +30,8 @@ int x;
                  System.out.println("1 - Cadastrar produtos");
                  System.out.println("2 - Listar e Buscar produtos");
                  System.out.println("3 - Editar produtos");
-                 System.out.println("4 - Adicionar produtos");
-                 System.out.println("5 - Remover produtos");
+                 System.out.println("4 - Adicionar unidades ao estoque");
+                 System.out.println("5 - Remover unidades ao estoque");
                  System.out.println("0 - Sair");
 
                  System.out.println("Escolha uma opcao: ");
@@ -134,6 +134,51 @@ int x;
                          }
                          break;
                      case 4:
+                         System.out.println(" Adicionar unidades ao estoque");
+                         System.out.println(" Insira o nome ou codigo do produto para adicionar unidades ao estoque: ");
+
+                         String buscaAdd = ler.nextLine();
+
+                         if(buscaAdd.matches("\\d+")) {
+                             int cEditor = Integer.parseInt(buscaAdd);
+                             for(Produto prods : produtos) {
+                                 if(prods.getCodigo() == cEditor) {
+                                     System.out.println(prods);
+                                     System.out.println(" Insira quantas unidades quer adicionar");
+
+                                     int q1;
+                                     System.out.println("Quantidade: ");
+                                     do {
+
+                                         q1 = ler.nextInt();
+
+                                         if(q1 <= 0) {
+                                             System.out.println("Insira um valor valido");
+                                         }
+                                     } while(q1 <= 0);
+                                     prods.adicionarUnidadesEstoque(q1);
+                                 }
+                             }
+                         } else {
+                             for (Produto prods : produtos) {
+                                 if (prods.getNome().toLowerCase().replaceAll("\\s+", "").equals(buscaAdd.toLowerCase().replaceAll("\\s+", ""))) {
+                                     System.out.println(prods);
+                                     System.out.println(" Insira quantas unidades quer adicionar");
+
+                                     int q1;
+                                     System.out.println("Quantidade: ");
+                                     do {
+
+
+                                         q1 = ler.nextInt();
+                                         if(q1 <= 0) {
+                                             System.out.println("Insira um valor valido");
+                                         }
+                                     } while(q1 <= 0);
+                                     prods.adicionarUnidadesEstoque(q1);
+                                 }
+                             }
+                         }
                          break;
                      case 5:
                          break;
