@@ -45,4 +45,13 @@ public class Produto {
 
     }
 
+    public int getCodigo() {
+        return this.codigo;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Codigo: %d // Nome: %s // Preco: %.2f // Quantidade: %d%n", this.codigo, this.nome, this.preco, this.quantidade);
+    }
+
 }

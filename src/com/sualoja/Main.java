@@ -67,7 +67,24 @@ int x;
                      case 2:
                          System.out.println("Listar e Buscar produtos");
                          for(Produto prods: produtos) {
-                             System.out.printf("Nome: %s // Preco: %.2f // Quantidade: %d%n", prods.getNome(), prods.getPreco(), prods.getQuantidade());
+                             System.out.printf("Codigo: %d // Nome: %s // Preco: %.2f // Quantidade: %d%n",prods.getCodigo(), prods.getNome(), prods.getPreco(), prods.getQuantidade());
+                         }
+                         System.out.println("Buscar produto por nome ou codigo");
+                         String busca = ler.nextLine();
+                         if(busca.matches("\\d+")) {
+                             int c = Integer.parseInt(busca);
+                             for(Produto prods : produtos) {
+                                if(prods.getCodigo() == c) {
+                                    System.out.println(prods);
+                                }
+                             }
+                         } else {
+                             for (Produto prods : produtos) {
+                                 if(prods.getNome().toLowerCase().replaceAll("\\s+", "").equals(busca.toLowerCase().replaceAll("\\s+", ""))) {
+                                     System.out.println(prods);
+                                 }
+                             }
+
                          }
                          break;
                      case 3:
