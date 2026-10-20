@@ -32,6 +32,7 @@ int x;
                  System.out.println("3 - Editar produtos");
                  System.out.println("4 - Adicionar unidades ao estoque");
                  System.out.println("5 - Remover unidades do estoque");
+                 System.out.println("6 - Excluir produto");
                  System.out.println("0 - Sair");
 
                  System.out.println("Escolha uma opcao: ");
@@ -237,6 +238,18 @@ int x;
                          }
                          break;
                      case 6:
+                         System.out.println("Excluir produto");
+                         System.out.println("Insira o codigo do produto a ser excluido");
+
+                         String buscaExcluir = ler.nextLine();
+
+                         if(buscaExcluir.matches("\\d+")) {
+                             int cEditor = Integer.parseInt(buscaExcluir);
+                             produtos.removeIf(prods -> prods.getCodigo() == cEditor);
+
+                         }
+
+
                          break;
                      default:
                          break;
