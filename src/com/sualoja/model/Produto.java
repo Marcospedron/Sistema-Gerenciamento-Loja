@@ -59,6 +59,17 @@ public class Produto {
     }
 
     public void adicionarUnidadesEstoque(int quantidade) {
+
         this.quantidade += quantidade;
+    }
+
+    public boolean removerUnidadesEstoque(int quantidade) {
+        if(this.quantidade - quantidade >=0 && quantidade > 0) {
+            this.quantidade -= quantidade;
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

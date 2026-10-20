@@ -31,7 +31,7 @@ int x;
                  System.out.println("2 - Listar e Buscar produtos");
                  System.out.println("3 - Editar produtos");
                  System.out.println("4 - Adicionar unidades ao estoque");
-                 System.out.println("5 - Remover unidades ao estoque");
+                 System.out.println("5 - Remover unidades do estoque");
                  System.out.println("0 - Sair");
 
                  System.out.println("Escolha uma opcao: ");
@@ -181,6 +181,60 @@ int x;
                          }
                          break;
                      case 5:
+                         System.out.println(" Remover unidades do estoque");
+                         System.out.println(" Insira o nome ou codigo do produto para adicionar unidades ao estoque: ");
+
+                         String buscaRemove = ler.nextLine();
+
+                         if(buscaRemove.matches("\\d+")) {
+                             int cEditor = Integer.parseInt(buscaRemove);
+                             for(Produto prods : produtos) {
+                                 if(prods.getCodigo() == cEditor) {
+                                     System.out.println(prods);
+                                     System.out.println(" Insira quantas unidades quer remover");
+
+                                     int q1;
+                                     System.out.println("Quantidade: ");
+                                     do {
+
+                                         q1 = ler.nextInt();
+
+                                         if(q1 <= 0) {
+                                             System.out.println("Insira um valor valido");
+                                         }
+                                     } while(q1 <= 0);
+                                    if( prods.removerUnidadesEstoque(q1)) {
+                                        System.out.println("Unidades removidas com sucesso");
+                                    } else {
+                                        System.out.println("Nao foi possivel remover as unidades");
+
+                                    }
+                                 }
+                             }
+                         } else {
+                             for (Produto prods : produtos) {
+                                 if (prods.getNome().toLowerCase().replaceAll("\\s+", "").equals(buscaRemove.toLowerCase().replaceAll("\\s+", ""))) {
+                                     System.out.println(prods);
+                                     System.out.println(" Insira quantas unidades quer remover");
+
+                                     int q1;
+                                     System.out.println("Quantidade: ");
+                                     do {
+
+                                         q1 = ler.nextInt();
+
+                                         if (q1 <= 0) {
+                                             System.out.println("Insira um valor valido");
+                                         }
+                                     } while (q1 <= 0);
+                                     if (prods.removerUnidadesEstoque(q1)) {
+                                         System.out.println("Unidades removidas com sucesso");
+                                     } else {
+                                         System.out.println("Nao foi possivel remover as unidades");
+                                     }
+                                 }
+                             }
+                         }
                          break;
                      case 6:
                          break;
