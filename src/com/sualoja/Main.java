@@ -339,7 +339,7 @@ int x;
                  System.out.println("2 - Listar clientes");
                  System.out.println("3 - Buscar clientes");
                  System.out.println("4 - Editar clientes");
-                 System.out.println("6 - Remover clientes");
+                 System.out.println("5 - Remover clientes");
                  System.out.println("0 - Sair");
 
                  System.out.println("Escolha uma opcao: ");
@@ -371,13 +371,66 @@ int x;
                          gerenciadorClientes.listarClientes();
                          break;
                      case 3:
-                     break;
+                         System.out.println("Buscar clientes");
+                         System.out.println("Insira o nome ou codigo do cliente desejado: ");
+
+                         String n2 = ler.nextLine();
+                         if(gerenciadorClientes.buscarCliente(n2)) {
+
+                         } else {
+                             System.out.println("Cliente nao encontrado");
+                         }
+                         break;
                      case 4:
-                     break;
+                         System.out.println(" Editar clientes");
+                         System.out.println("Insira o codigo do cliente que voce quer editar: ");
+                         String codEdit = ler.nextLine();
+                         int codigo = Integer.parseInt(codEdit);
+                         Cliente cll = gerenciadorClientes.buscarClientePorCodigo(codigo);
+
+                         if (cll != null) {
+                             System.out.println("Insira os novos dados");
+
+                             System.out.println("Nome:");
+                             String n3 = ler.nextLine();
+
+                             System.out.println("Contato:");
+                             String c2 = ler.nextLine();
+
+                             cll.setNome(n3);
+                             cll.setContato(c2);
+
+                             System.out.println("Cliente editado com sucesso!");
+                         } else {
+                             System.out.println("Cliente não encontrado!");
+                         }
+
+
+
+                         break;
                      case 5:
-                     break;
-                     case 6:
-                     break;
+                         System.out.println(" Remover clientes");
+
+                         System.out.println("Digite o código do cliente que quer excluir:");
+                         String codRemover = ler.nextLine();
+
+                         if (codRemover.matches("\\d+")) {
+                             int codRem = Integer.parseInt(codRemover);
+
+                             if (gerenciadorClientes.removerCliente(codRem)) {
+                                 System.out.println("Cliente removido com sucesso!");
+                             } else {
+                                 System.out.println("Cliente não encontrado!");
+                             }
+                         } else {
+                             System.out.println("Código inválido!");
+                         }
+
+
+
+
+                         break;
+
 
 
 
