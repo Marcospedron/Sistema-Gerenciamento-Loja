@@ -1,34 +1,54 @@
+
 package com.sualoja.model;
 
 import java.util.ArrayList;
 
 public class Venda {
-    ArrayList<ItemVenda> itensVenda = new ArrayList<ItemVenda>();
+
+    private static int proximoCodigo = 1;
+
+    private ArrayList<ItemVenda> itensVenda = new ArrayList<>();
     private Cliente cliente;
+    private int codigo;
 
     public Venda(Cliente cliente) {
+        this.codigo = proximoCodigo++;
         this.cliente = cliente;
     }
 
-    public void addListIV (ItemVenda iv) {
-        this.itensVenda.add(iv);
-
+    public int getCodigo() {
+        return this.codigo;
     }
 
-    public void mostrarVendas(){
-        for(ItemVenda i: itensVenda) {
+    public Cliente getCliente() {
+        return this.cliente;
+    }
+
+    public void addListIV(ItemVenda iv) {
+        this.itensVenda.add(iv);
+    }
+
+    public void mostrarVendas() {
+        System.out.println("========================================");
+        System.out.println("Venda codigo: " + this.codigo);
+        System.out.println("Cliente: " + this.cliente.getNome());
+        System.out.println("Itens da venda:");
+
+        for (ItemVenda i : itensVenda) {
             System.out.println(i);
         }
+
+        System.out.printf("Valor total: R$ %.2f%n", valorTotalVenda());
+        System.out.println("========================================");
     }
 
-    public void procurarVenda(int codigo) {
+    public double valorTotalVenda() {
+        double v = 0;
+
         for (ItemVenda iv : itensVenda) {
-            if (iv.getCodigo() == codigo) {
-                System.out.println(iv);
-            }
+            v += iv.getValorVenda();
         }
+
+        return v;
     }
-
-
-
 }
