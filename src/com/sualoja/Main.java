@@ -1,5 +1,7 @@
+import com.sualoja.model.ItemVenda;
 import com.sualoja.model.Produto;
 import com.sualoja.model.Cliente;
+import com.sualoja.model.Venda;
 import com.sualoja.service.GerenciadorClientes;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -26,7 +28,7 @@ int x;
      System.out.println("Escolha uma opcao: ");
 
      x = ler.nextInt();
-
+     ler.nextLine();
      switch(x){
          case 1:
              int j;
@@ -439,9 +441,45 @@ int x;
              }while (k != 0);
          break;
          case 3:
-         break;
+             System.out.println("Realizar vendas ");
+             gerenciadorClientes.listarClientes();
+             System.out.println("Insira o codigo do cliente:  ");
+             String buscaV = ler.nextLine();
+             int bv = Integer.parseInt(buscaV);
+            gerenciadorClientes.buscarCliente(buscaV);
+             Venda venda = new Venda(gerenciadorClientes.buscarClientePorCodigo(bv));
+
+
+             for(Produto prods: produtos) {
+                 System.out.printf("Codigo: %d // Nome: %s // Preco: %.2f // Quantidade: %d%n",prods.getCodigo(), prods.getNome(), prods.getPreco(), prods.getQuantidade());
+             }
+             int nn;
+
+             do {
+                 System.out.println("Insira o codigo do produto a ser adicionado a venda ");
+                 int codVenda = ler.nextInt();
+                 System.out.println("Insira a quantidade  do produto a ser adicionado a venda ");
+                 int qtdV = ler.nextInt();
+                 for(Produto prods : produtos) {
+                     if(prods.getCodigo() == codVenda) {
+                         ItemVenda itemvenda = new ItemVenda(qtdV, prods);
+                         venda.addListIV(itemvenda);
+                     }
+                 }
+
+                 System.out.printf("Deseja adicionar mais produtosa?%n  " +
+                         "1 - SIM %n" +
+                         "0 - NAO%n");
+
+                 nn = ler.nextInt();
+             }while(nn != 0);
+
+             venda.mostrarVendas();
+
+             break;
          case 4:
          break;
+
          case 5:
          break;
          case 6:
