@@ -14,10 +14,10 @@ int x;
     Venda venda = null;
     ArrayList<Venda> vendas = new ArrayList<>();
 
-    Produto produto3 = new Produto("Teclado", 50, 10);
-    produtos.add(produto3);
-    Produto produto2 = new Produto("Mouse", 30, 10);
-    produtos.add(produto2);
+    Produto produtoUM = new Produto("Teclado", 50, 10);
+    produtos.add(produtoUM);
+    Produto produtoDOIS = new Produto("Mouse", 30, 10);
+    produtos.add(produtoDOIS);
 
 
     Cliente cliente2 = new Cliente("Marcos", "46999299562");
@@ -501,6 +501,11 @@ int x;
                          if (qtdV > 0 && qtdV <= prods.getQuantidade()) {
                              ItemVenda itemvenda = new ItemVenda(qtdV, prods);
                              venda.addListIV(itemvenda);
+                             if(codVenda == 1){
+                                 produtoUM.removerUnidadesEstoque(qtdV);
+                             } else if(codVenda == 2) {
+                                 produtoDOIS.removerUnidadesEstoque(qtdV);
+                             }
                          } else {
                              System.out.println(
                                      "Quantidade invalida ou estoque insuficiente"
