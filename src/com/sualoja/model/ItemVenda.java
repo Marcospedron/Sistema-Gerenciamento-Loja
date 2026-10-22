@@ -16,6 +16,10 @@ public class ItemVenda {
             this.valorVenda = this.quantidade * this.produto.getPreco();
         }
 
+        public int getCodigo() {
+            return this.codigo;
+        }
+
     @Override
     public String toString() {
         return String.format("Codigo: %d // Produto %s //Quantidade: %d // Valor Total: %.2f%n", this.codigo, produto.getNome(), this.quantidade, this.valorVenda);

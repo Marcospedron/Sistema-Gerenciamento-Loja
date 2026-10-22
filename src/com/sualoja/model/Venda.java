@@ -21,6 +21,14 @@ public class Venda {
         }
     }
 
+    public void procurarVenda(int codigo) {
+        for (ItemVenda iv : itensVenda) {
+            if (iv.getCodigo() == codigo) {
+                System.out.println(iv);
+            }
+        }
+    }
+
 
 
 }

@@ -11,6 +11,7 @@ void main() {
 int x;
     ArrayList<Produto> produtos = new ArrayList<Produto>();
     GerenciadorClientes gerenciadorClientes = new GerenciadorClientes();
+    Venda venda = null;
  do {
      System.out.println("========================================");
      System.out.println("       Sistema de Gerenciamento");
@@ -447,7 +448,7 @@ int x;
              String buscaV = ler.nextLine();
              int bv = Integer.parseInt(buscaV);
             gerenciadorClientes.buscarCliente(buscaV);
-             Venda venda = new Venda(gerenciadorClientes.buscarClientePorCodigo(bv));
+              venda = new Venda(gerenciadorClientes.buscarClientePorCodigo(bv));
 
 
              for(Produto prods: produtos) {
@@ -478,7 +479,32 @@ int x;
 
              break;
          case 4:
-         break;
+             System.out.println("Consultar vendas");
+             if(venda != null)
+             {
+                 venda.mostrarVendas();
+
+                 System.out.println("Quer procurar uma venda especifica? 1- SIM ; 0 - NAO");
+
+                 int nv = ler.nextInt();
+
+                 if(nv == 1) {
+                     System.out.println("Insira o codigo da  venda");
+
+                     int l = ler.nextInt();
+                     venda.procurarVenda(l);
+
+                 } else {
+                     break;
+                 }
+
+
+             } else{
+                 System.out.println("Nenhuma venda realizada");
+             }
+
+
+             break;
 
          case 5:
          break;
