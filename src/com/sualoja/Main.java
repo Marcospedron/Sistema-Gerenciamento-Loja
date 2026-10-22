@@ -12,6 +12,20 @@ int x;
     ArrayList<Produto> produtos = new ArrayList<Produto>();
     GerenciadorClientes gerenciadorClientes = new GerenciadorClientes();
     Venda venda = null;
+    ArrayList<Venda> vendas = new ArrayList<>();
+
+    Produto produtoUM = new Produto("Teclado", 50, 10);
+    produtos.add(produtoUM);
+    Produto produtoDOIS = new Produto("Mouse", 30, 10);
+    produtos.add(produtoDOIS);
+
+
+    Cliente cliente2 = new Cliente("Marcos", "46999299562");
+    gerenciadorClientes.addList(cliente2);
+
+    Cliente cliente3 = new Cliente("Joao", "44999321041");
+    gerenciadorClientes.addList(cliente3);
+
  do {
      System.out.println("========================================");
      System.out.println("       Sistema de Gerenciamento");
@@ -441,70 +455,130 @@ int x;
                  }
              }while (k != 0);
          break;
+
          case 3:
-             System.out.println("Realizar vendas ");
+             System.out.println("Realizar vendas");
              gerenciadorClientes.listarClientes();
-             System.out.println("Insira o codigo do cliente:  ");
-             String buscaV = ler.nextLine();
-             int bv = Integer.parseInt(buscaV);
-            gerenciadorClientes.buscarCliente(buscaV);
-              venda = new Venda(gerenciadorClientes.buscarClientePorCodigo(bv));
 
+             System.out.println("Insira o codigo do cliente:");
+             int bv = ler.nextInt();
 
-             for(Produto prods: produtos) {
-                 System.out.printf("Codigo: %d // Nome: %s // Preco: %.2f // Quantidade: %d%n",prods.getCodigo(), prods.getNome(), prods.getPreco(), prods.getQuantidade());
+             Cliente clienteVenda =
+                     gerenciadorClientes.buscarClientePorCodigo(bv);
+
+             if (clienteVenda == null) {
+                 System.out.println("Cliente nao encontrado");
+                 break;
              }
+
+             venda = new Venda(clienteVenda);
+
+             for (Produto prods : produtos) {
+                 System.out.printf(
+                         "Codigo: %d // Nome: %s // Preco: %.2f // Quantidade: %d%n",
+                         prods.getCodigo(),
+                         prods.getNome(),
+                         prods.getPreco(),
+                         prods.getQuantidade()
+                 );
+             }
+
              int nn;
 
              do {
-                 System.out.println("Insira o codigo do produto a ser adicionado a venda ");
+                 System.out.println("Insira o codigo do produto:");
                  int codVenda = ler.nextInt();
-                 System.out.println("Insira a quantidade  do produto a ser adicionado a venda ");
+
+                 System.out.println("Insira a quantidade:");
                  int qtdV = ler.nextInt();
-                 for(Produto prods : produtos) {
-                     if(prods.getCodigo() == codVenda) {
-                         ItemVenda itemvenda = new ItemVenda(qtdV, prods);
-                         venda.addListIV(itemvenda);
+
+                 boolean produtoEncontrado = false;
+
+                 for (Produto prods : produtos) {
+                     if (prods.getCodigo() == codVenda) {
+                         produtoEncontrado = true;
+
+                         if (qtdV > 0 && qtdV <= prods.getQuantidade()) {
+                             ItemVenda itemvenda = new ItemVenda(qtdV, prods);
+                             venda.addListIV(itemvenda);
+                             if(codVenda == 1){
+                                 produtoUM.removerUnidadesEstoque(qtdV);
+                             } else if(codVenda == 2) {
+                                 produtoDOIS.removerUnidadesEstoque(qtdV);
+                             }
+                         } else {
+                             System.out.println(
+                                     "Quantidade invalida ou estoque insuficiente"
+                             );
+                         }
+
+                         break;
                      }
                  }
 
-                 System.out.printf("Deseja adicionar mais produtosa?%n  " +
-                         "1 - SIM %n" +
-                         "0 - NAO%n");
-
-                 nn = ler.nextInt();
-             }while(nn != 0);
-
-             venda.mostrarVendas();
-
-             break;
-         case 4:
-             System.out.println("Consultar vendas");
-             if(venda != null)
-             {
-                 venda.mostrarVendas();
-
-                 System.out.println("Quer procurar uma venda especifica? 1- SIM ; 0 - NAO");
-
-                 int nv = ler.nextInt();
-
-                 if(nv == 1) {
-                     System.out.println("Insira o codigo da  venda");
-
-                     int l = ler.nextInt();
-                     venda.procurarVenda(l);
-
-                 } else {
-                     break;
+                 if (!produtoEncontrado) {
+                     System.out.println("Produto nao encontrado");
                  }
 
+                 System.out.println("Deseja adicionar mais produtos?");
+                 System.out.println("1 - SIM");
+                 System.out.println("0 - NAO");
 
-             } else{
-                 System.out.println("Nenhuma venda realizada");
+                 nn = ler.nextInt();
+
+             } while (nn != 0);
+
+             if (venda.valorTotalVenda() > 0) {
+                 vendas.add(venda);
+                 System.out.println("Venda registrada com sucesso!");
+                 venda.mostrarVendas();
+             } else {
+                 System.out.println("Venda cancelada: nenhum item foi adicionado.");
              }
 
+             break;
+
+
+         case 4:
+             System.out.println("Consultar vendas");
+
+             if (vendas.isEmpty()) {
+                 System.out.println("Nenhuma venda realizada");
+                 break;
+             }
+
+             for (Venda v : vendas) {
+                 v.mostrarVendas();
+             }
+
+             System.out.println("Quer procurar uma venda especifica?");
+             System.out.println("1 - SIM");
+             System.out.println("0 - NAO");
+
+             int nv = ler.nextInt();
+
+             if (nv == 1) {
+                 System.out.println("Insira o codigo da venda:");
+                 int codBusca = ler.nextInt();
+
+                 Venda vendaEncontrada = null;
+
+                 for (Venda v : vendas) {
+                     if (v.getCodigo() == codBusca) {
+                         vendaEncontrada = v;
+                         break;
+                     }
+                 }
+
+                 if (vendaEncontrada != null) {
+                     vendaEncontrada.mostrarVendas();
+                 } else {
+                     System.out.println("Venda nao encontrada");
+                 }
+             }
 
              break;
+
 
          case 5:
          break;

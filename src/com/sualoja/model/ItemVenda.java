@@ -20,9 +20,14 @@ public class ItemVenda {
             return this.codigo;
         }
 
+        public double getValorVenda() {
+            return valorVenda;
+        }
+
     @Override
     public String toString() {
-        return String.format("Codigo: %d // Produto %s //Quantidade: %d // Valor Total: %.2f%n", this.codigo, produto.getNome(), this.quantidade, this.valorVenda);
+        return String.format("Codigo: %d // Produto %s //Quantidade: %d // Valor: %.2f%n", this.codigo, produto.getNome(), this.quantidade, this.valorVenda);
     }
+
 
 }
